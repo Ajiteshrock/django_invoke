@@ -1,7 +1,7 @@
 from os.path import dirname
-from invoke import run, task
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from invoke import run, task
 
 
 base = dirname(__file__)
@@ -57,6 +57,19 @@ def create_application(username=None, email=None):
 
 
 @task
+def create_email_templates(file=None, overwrite=False, info=False):
+    attrs = ""
+    if file:
+        attrs += " --file={}".format(file)
+    if overwrite:
+        attrs += " --overwrite=True"
+    if info:
+        attrs += " --info=True"
+    run("{}/manage.py load_email_templates{}".format(base, attrs))
+
+
+@task
 def reset(db=False, db_name=DEFAULT_DB_NAME, username=None, email=None):
     build(db=db, db_name=db_name, admin=True, username=username, email=email)
     create_application()
+    create_email_templates()
