@@ -1,4 +1,4 @@
-## django_invoke
+## Django_Invoke Methods
 invoke is a python task execution library and would be a replacement of fabric. Also, it supports python3 as well. Made a personal task scripts for my personal django project.
 Refer to python invoke library: https://github.com/pyinvoke/invoke
 
